@@ -3,37 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Analyst Roadmap Tracker</title>
+    <title>Ultimate Data Analyst Roadmap Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --bg-color: #f8f9fa;
             --text-color: #333;
-            --card-bg: #fff;
+            --card-bg: #ffffff;
             --primary: #6c63ff;
+            --primary-light: #a29cff;
             --secondary: #4d44db;
+            --accent: #ff6584;
             --border: #e1e4e8;
             --link-color: #1a73e8;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: all 0.3s ease;
         }
         .dark-mode {
-            --bg-color: #1a1a2e;
+            --bg-color: #121212;
             --text-color: #f0f0f0;
-            --card-bg: #16213e;
+            --card-bg: #1e1e1e;
             --primary: #8a7cff;
             --secondary: #6a5acd;
-            --border: #2d3748;
+            --accent: #ff6584;
+            --border: #2d2d2d;
             --link-color: #8ab4f8;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
             padding: 0;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             line-height: 1.6;
         }
+        @supports (font-variation-settings: normal) {
+            body { font-family: 'Inter var', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; }
+        }
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -42,130 +55,493 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
         h1 {
             color: var(--primary);
             margin: 0;
+            font-weight: 700;
+            font-size: 2rem;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .theme-toggle {
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .btn {
             background: var(--primary);
             color: white;
             border: none;
             padding: 8px 15px;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-1px);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        .btn-outline:hover {
+            background: rgba(108, 99, 255, 0.1);
         }
         .progress-container {
             background: var(--card-bg);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
             border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .progress-stats {
+            display: flex;
+            gap: 20px;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
         }
         .progress-bar {
-            height: 20px;
-            background: #e0e0e0;
-            border-radius: 10px;
-            margin-top: 10px;
+            height: 12px;
+            background: rgba(108, 99, 255, 0.1);
+            border-radius: 6px;
+            margin-top: 15px;
             overflow: hidden;
+            position: relative;
         }
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             width: 0%;
             transition: width 0.5s ease;
+            border-radius: 6px;
+        }
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                            transparent, 
+                            rgba(255, 255, 255, 0.2), 
+                            transparent);
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
         .phase {
             background: var(--card-bg);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: var(--radius);
+            padding: 0;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
             border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .phase-header {
+            background: linear-gradient(90deg, rgba(108, 99, 255, 0.1), transparent);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
         }
         .phase-title {
             color: var(--primary);
-            margin-top: 0;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 10px;
+            margin: 0;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .phase-icon {
+            width: 30px;
+            height: 30px;
+            background: rgba(108, 99, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        .phase-progress {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+        .phase-content {
+            padding: 20px 25px;
+        }
+        .week {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--border);
+        }
+        .week:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .week-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .week-title {
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .week-badge {
+            background: rgba(77, 68, 219, 0.1);
+            color: var(--secondary);
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .week-progress {
+            font-size: 0.85rem;
+            color: var(--text-color);
+            opacity: 0.8;
         }
         .task {
             display: flex;
             align-items: flex-start;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 5px;
-            background: rgba(108, 99, 255, 0.05);
+            margin: 12px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(108, 99, 255, 0.03);
             border-left: 3px solid var(--primary);
+            transition: var(--transition);
+            position: relative;
         }
-        .task input {
+        .task:hover {
+            background: rgba(108, 99, 255, 0.08);
+            transform: translateX(3px);
+        }
+        .task-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--primary);
+            border-radius: 4px;
             margin-right: 15px;
-            transform: scale(1.2);
             margin-top: 3px;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
         }
-        .task-label {
+        .task-checkbox:checked {
+            background: var(--primary);
+        }
+        .task-checkbox:checked::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            color: white;
+            font-size: 10px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .task-content {
             flex: 1;
         }
-        .task-completed {
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .task-label {
+            font-weight: 500;
+            flex: 1;
+        }
+        .task-completed .task-label {
             text-decoration: line-through;
             opacity: 0.7;
         }
-        .week {
-            margin-bottom: 15px;
+        .task-day {
+            font-size: 0.8rem;
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--primary);
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-right: 10px;
         }
-        .week-title {
-            font-weight: bold;
+        .task-description {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 5px;
+            line-height: 1.5;
+        }
+        .task-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        .task-link {
+            color: var(--link-color);
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: var(--transition);
+        }
+        .task-link:hover {
+            text-decoration: underline;
+        }
+        .task-link i {
+            font-size: 0.7rem;
+        }
+        .task-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .task-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            opacity: 0.5;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+        .task-btn:hover {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.05);
+        }
+        .resources-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-top: 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        .section-title {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title i {
+            color: var(--accent);
+        }
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .resource-card {
+            background: rgba(108, 99, 255, 0.03);
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        .resource-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.1);
+            border-color: var(--primary-light);
+        }
+        .resource-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .resource-title i {
+            color: var(--primary);
+        }
+        .resource-description {
+            font-size: 0.85rem;
+            opacity: 0.8;
             margin-bottom: 10px;
-            color: var(--secondary);
         }
         .resource-link {
             color: var(--link-color);
             text-decoration: none;
-            font-weight: 500;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
         }
         .resource-link:hover {
             text-decoration: underline;
         }
-        .resources-section {
-            background: var(--card-bg);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .notes-section {
+            margin-top: 40px;
+        }
+        .notes-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border-radius: var(--radius);
             border: 1px solid var(--border);
+            background: var(--card-bg);
+            color: var(--text-color);
+            font-family: inherit;
+            resize: vertical;
+            transition: var(--transition);
         }
-        .resources-title {
-            color: var(--primary);
-            margin-top: 0;
+        .notes-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
         }
-        .resource-item {
-            margin-bottom: 10px;
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px 0;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            opacity: 0.7;
         }
         @media (max-width: 768px) {
             .container {
-                padding: 10px;
+                padding: 15px;
             }
             header {
                 flex-direction: column;
                 align-items: flex-start;
+                gap: 15px;
             }
-            .theme-toggle {
-                margin-top: 10px;
+            .controls {
+                width: 100%;
+                justify-content: space-between;
             }
+            .progress-stats {
+                gap: 10px;
+            }
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Animation for completed tasks */
+        @keyframes taskComplete {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        .task-completed-animation {
+            animation: taskComplete 0.5s ease;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🚀 Data Analyst Roadmap Tracker</h1>
-            <button class="theme-toggle" id="themeToggle">🌙 Dark Mode</button>
+            <div class="header-content">
+                <div class="logo">DA</div>
+                <h1>Ultimate Data Analyst Roadmap</h1>
+            </div>
+            <div class="controls">
+                <button class="btn" id="themeToggle">
+                    <i class="fas fa-moon"></i> Dark Mode
+                </button>
+                <button class="btn btn-outline" id="exportBtn">
+                    <i class="fas fa-file-export"></i> Export
+                </button>
+            </div>
         </header>
 
         <div class="progress-container">
-            <h2>Overall Progress: <span id="progressPercent">0%</span></h2>
+            <div class="progress-header">
+                <h2>Your Progress</h2>
+                <div class="progress-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="completedTasks">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="totalTasks">24</div>
+                        <div class="stat-label">Total Tasks</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="progressPercent">0%</div>
+                        <div class="stat-label">Complete</div>
+                    </div>
+                </div>
+            </div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
@@ -173,255 +549,685 @@
 
         <!-- Phase 1: SQL & Power BI -->
         <div class="phase">
-            <h2 class="phase-title">📊 Phase 1: Master SQL & Power BI (Weeks 1-3)</h2>
-            
-            <div class="week">
-                <div class="week-title">Week 1: SQL Deep Dive</div>
-                <div class="task">
-                    <input type="checkbox" id="task1" data-week="1">
-                    <label for="task1" class="task-label">
-                        <strong>Day 1-3:</strong> Advanced SQL (CTEs, Window Functions, Subqueries) - Practice on 
-                        <a href="https://www.stratascratch.com/" class="resource-link" target="_blank">StrataScratch</a> and 
-                        <a href="https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset" class="resource-link" target="_blank">Google BigQuery Public Datasets</a>
-                    </label>
-                </div>
-                <div class="task">
-                    <input type="checkbox" id="task2" data-week="1">
-                    <label for="task2" class="task-label">
-                        <strong>Day 4-5:</strong> Query Optimization (Indexing, Execution Plans) - Use 
-                        <a href="https://use-the-index-luke.com/" class="resource-link" target="_blank">Use The Index, Luke</a>
-                    </label>
-                </div>
-                <div class="task">
-                    <input type="checkbox" id="task3" data-week="1">
-                    <label for="task3" class="task-label">
-                        <strong>Day 6-7:</strong> Solve 3-5 business case studies (e.g., SaaS retention analysis) - Try 
-                        <a href="https://leetcode.com/problemset/database/" class="resource-link" target="_blank">LeetCode SQL Problems</a>
-                    </label>
-                </div>
+            <div class="phase-header">
+                <h2 class="phase-title">
+                    <span class="phase-icon"><i class="fas fa-database"></i></span>
+                    Phase 1: Master SQL & Power BI (Weeks 1-3)
+                </h2>
+                <div class="phase-progress" id="phase1Progress">0/7 tasks</div>
             </div>
+            <div class="phase-content">
+                
+                <div class="week">
+                    <div class="week-header">
+                        <h3 class="week-title">
+                            <i class="fas fa-calendar-week"></i>
+                            Week 1: SQL Deep Dive
+                            <span class="week-badge">Core Skills</span>
+                        </h3>
+                        <div class="week-progress" id="week1Progress">0/3 tasks</div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task1" data-week="1" data-phase="1">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 1-3</span>
+                                <span class="task-label">Advanced SQL Practice</span>
+                            </div>
+                            <div class="task-description">
+                                Master CTEs, Window Functions, and Subqueries with real-world datasets.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://www.stratascratch.com/" class="task-link" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> StrataScratch
+                                </a>
+                                <a href="https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset" class="task-link" target="_blank">
+                                    <i class="fas fa-database"></i> Google BigQuery
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task2" data-week="1" data-phase="1">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 4-5</span>
+                                <span class="task-label">Query Optimization</span>
+                            </div>
+                            <div class="task-description">
+                                Learn indexing strategies and analyze execution plans for efficient queries.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://use-the-index-luke.com/" class="task-link" target="_blank">
+                                    <i class="fas fa-book"></i> Use The Index, Luke
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task3" data-week="1" data-phase="1">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 6-7</span>
+                                <span class="task-label">Business Case Studies</span>
+                            </div>
+                            <div class="task-description">
+                                Solve real business problems like SaaS retention analysis with SQL.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://leetcode.com/problemset/database/" class="task-link" target="_blank">
+                                    <i class="fas fa-code"></i> LeetCode SQL
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="week">
-                <div class="week-title">Week 2: Power BI + DAX</div>
-                <div class="task">
-                    <input type="checkbox" id="task4" data-week="2">
-                    <label for="task4" class="task-label">
-                        <strong>Day 1-3:</strong> Build 2 dashboards (Sales, HR Analytics) using 
-                        <a href="https://www.kaggle.com/" class="resource-link" target="_blank">Kaggle</a> or 
-                        <a href="https://www.makeovermonday.co.uk/data/" class="resource-link" target="_blank">Makeover Monday</a>
-                    </label>
+                <!-- Week 2 content -->
+                <div class="week">
+                    <div class="week-header">
+                        <h3 class="week-title">
+                            <i class="fas fa-chart-bar"></i>
+                            Week 2: Power BI + DAX
+                            <span class="week-badge">Visualization</span>
+                        </h3>
+                        <div class="week-progress" id="week2Progress">0/3 tasks</div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task4" data-week="2" data-phase="1">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 1-3</span>
+                                <span class="task-label">Dashboard Building</span>
+                            </div>
+                            <div class="task-description">
+                                Create Sales and HR Analytics dashboards with real datasets.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://www.kaggle.com/" class="task-link" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> Kaggle
+                                </a>
+                                <a href="https://www.makeovermonday.co.uk/data/" class="task-link" target="_blank">
+                                    <i class="fas fa-database"></i> Makeover Monday
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task5" data-week="2" data-phase="1">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 4-5</span>
+                                <span class="task-label">DAX Formulas</span>
+                            </div>
+                            <div class="task-description">
+                                Master CALCULATE, FILTER, and TIME INTELLIGENCE functions.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://www.sqlbi.com/guides/dax/" class="task-link" target="_blank">
+                                    <i class="fas fa-book"></i> SQLBI DAX Guide
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task6" data-week="2" data-phase="1">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 6-7</span>
+                                <span class="task-label">Financial Dashboard</span>
+                            </div>
+                            <div class="task-description">
+                                Build an interactive stock market analysis dashboard.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://www.kaggle.com/datasets/paultimothymooney/stock-market-data" class="task-link" target="_blank">
+                                    <i class="fas fa-database"></i> Stock Market Data
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="task">
-                    <input type="checkbox" id="task5" data-week="2">
-                    <label for="task5" class="task-label">
-                        <strong>Day 4-5:</strong> Learn DAX formulas - 
-                        <a href="https://www.sqlbi.com/guides/dax/" class="resource-link" target="_blank">SQLBI DAX Guide</a>
-                    </label>
-                </div>
-                <div class="task">
-                    <input type="checkbox" id="task6" data-week="2">
-                    <label for="task6" class="task-label">
-                        <strong>Day 6-7:</strong> Portfolio Project: Dynamic financial dashboard (stock market analysis) - Use 
-                        <a href="https://www.kaggle.com/datasets/paultimothymooney/stock-market-data" class="resource-link" target="_blank">Kaggle Stock Data</a>
-                    </label>
-                </div>
-            </div>
 
-            <div class="week">
-                <div class="week-title">Week 3: End-to-End Analytics Project</div>
-                <div class="task">
-                    <input type="checkbox" id="task7" data-week="3">
-                    <label for="task7" class="task-label">
-                        <strong>Project:</strong> Customer Churn Analysis (SQL + Power BI) - Dataset: 
-                        <a href="https://www.kaggle.com/datasets/blastchar/telco-customer-churn" class="resource-link" target="_blank">Telco Churn Data</a> → Publish on 
-                        <a href="https://github.com/" class="resource-link" target="_blank">GitHub</a>
-                    </label>
+                <!-- Week 3 content -->
+                <div class="week">
+                    <div class="week-header">
+                        <h3 class="week-title">
+                            <i class="fas fa-project-diagram"></i>
+                            Week 3: End-to-End Project
+                            <span class="week-badge">Portfolio</span>
+                        </h3>
+                        <div class="week-progress" id="week3Progress">0/1 tasks</div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task7" data-week="3" data-phase="1">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-label">Customer Churn Analysis</span>
+                            </div>
+                            <div class="task-description">
+                                Complete project combining SQL and Power BI, publish on GitHub.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://www.kaggle.com/datasets/blastchar/telco-customer-churn" class="task-link" target="_blank">
+                                    <i class="fas fa-database"></i> Telco Churn Data
+                                </a>
+                                <a href="https://github.com/" class="task-link" target="_blank">
+                                    <i class="fab fa-github"></i> GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Phase 2: Python, Pandas & EDA -->
         <div class="phase">
-            <h2 class="phase-title">🐍 Phase 2: Python, Pandas & EDA (Weeks 4-6)</h2>
-            
-            <div class="week">
-                <div class="week-title">Week 4: Python for Data Analysis</div>
-                <div class="task">
-                    <input type="checkbox" id="task8" data-week="4">
-                    <label for="task8" class="task-label">
-                        <strong>Day 1-3:</strong> Pandas Deep Dive (GroupBy, Pivot, Merging) - Dataset: 
-                        <a href="https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page" class="resource-link" target="_blank">NYC Taxi Trips</a>
-                    </label>
-                </div>
-                <div class="task">
-                    <input type="checkbox" id="task9" data-week="4">
-                    <label for="task9" class="task-label">
-                        <strong>Day 4-5:</strong> Automate a real task (clean & analyze 10K+ rows) - Try 
-                        <a href="https://www.kaggle.com/datasets/karkavelrajaj/amazon-sales-dataset" class="resource-link" target="_blank">Amazon Sales Data</a>
-                    </label>
-                </div>
-                <div class="task">
-                    <input type="checkbox" id="task10" data-week="4">
-                    <label for="task10" class="task-label">
-                        <strong>Day 6-7:</strong> Portfolio Project: EDA on 
-                        <a href="https://www.kaggle.com/datasets/iamsumat/spotify-top-2000s-mega-dataset" class="resource-link" target="_blank">Spotify Top Songs</a>
-                    </label>
-                </div>
+            <div class="phase-header">
+                <h2 class="phase-title">
+                    <span class="phase-icon"><i class="fab fa-python"></i></span>
+                    Phase 2: Python, Pandas & EDA (Weeks 4-6)
+                </h2>
+                <div class="phase-progress" id="phase2Progress">0/7 tasks</div>
             </div>
+            <div class="phase-content">
+                
+                <!-- Week 4 content -->
+                <div class="week">
+                    <div class="week-header">
+                        <h3 class="week-title">
+                            <i class="fas fa-calendar-week"></i>
+                            Week 4: Python for Data Analysis
+                            <span class="week-badge">Core Skills</span>
+                        </h3>
+                        <div class="week-progress" id="week4Progress">0/3 tasks</div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task8" data-week="4" data-phase="2">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 1-3</span>
+                                <span class="task-label">Pandas Deep Dive</span>
+                            </div>
+                            <div class="task-description">
+                                Master GroupBy, Pivot, Merging with NYC Taxi Trip data.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page" class="task-link" target="_blank">
+                                    <i class="fas fa-database"></i> NYC Taxi Trips
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task9" data-week="4" data-phase="2">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 4-5</span>
+                                <span class="task-label">Data Automation</span>
+                            </div>
+                            <div class="task-description">
+                                Clean and analyze large sales datasets programmatically.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://www.kaggle.com/datasets/karkavelrajaj/amazon-sales-dataset" class="task-link" target="_blank">
+                                    <i class="fas fa-database"></i> Amazon Sales Data
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task10" data-week="4" data-phase="2">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 6-7</span>
+                                <span class="task-label">Spotify EDA</span>
+                            </div>
+                            <div class="task-description">
+                                Exploratory analysis of top songs to find trends and patterns.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://www.kaggle.com/datasets/iamsumat/spotify-top-2000s-mega-dataset" class="task-link" target="_blank">
+                                    <i class="fas fa-database"></i> Spotify Top Songs
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="week">
-                <div class="week-title">Week 5: Advanced EDA + Data Cleaning</div>
-                <div class="task">
-                    <input type="checkbox" id="task11" data-week="5">
-                    <label for="task11" class="task-label">
-                        <strong>Day 1-3:</strong> Handle missing data, outliers - Dataset: 
-                        <a href="https://www.kaggle.com/datasets/zillow/zecon" class="resource-link" target="_blank">Zillow Housing Data</a>
-                    </label>
+                <!-- Week 5 content -->
+                <div class="week">
+                    <div class="week-header">
+                        <h3 class="week-title">
+                            <i class="fas fa-broom"></i>
+                            Week 5: Advanced EDA + Cleaning
+                            <span class="week-badge">Data Wrangling</span>
+                        </h3>
+                        <div class="week-progress" id="week5Progress">0/3 tasks</div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task11" data-week="5" data-phase="2">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 1-3</span>
+                                <span class="task-label">Data Cleaning</span>
+                            </div>
+                            <div class="task-description">
+                                Handle missing data and outliers in Zillow housing dataset.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://www.kaggle.com/datasets/zillow/zecon" class="task-link" target="_blank">
+                                    <i class="fas fa-database"></i> Zillow Data
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task12" data-week="5" data-phase="2">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 4-5</span>
+                                <span class="task-label">Automated Reports</span>
+                            </div>
+                            <div class="task-description">
+                                Generate PDF/HTML reports from Jupyter Notebooks.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://pypi.org/project/pdfkit/" class="task-link" target="_blank">
+                                    <i class="fas fa-file-pdf"></i> PDFKit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task13" data-week="5" data-phase="2">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 6-7</span>
+                                <span class="task-label">COVID-19 Analysis</span>
+                            </div>
+                            <div class="task-description">
+                                Explore and visualize pandemic trends worldwide.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://www.kaggle.com/datasets/imdevskp/corona-virus-report" class="task-link" target="_blank">
+                                    <i class="fas fa-database"></i> COVID-19 Data
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="task">
-                    <input type="checkbox" id="task12" data-week="5">
-                    <label for="task12" class="task-label">
-                        <strong>Day 4-5:</strong> Automated Report (Python + Jupyter → PDF/HTML) - Use 
-                        <a href="https://pypi.org/project/pdfkit/" class="resource-link" target="_blank">PDFKit</a>
-                    </label>
-                </div>
-                <div class="task">
-                    <input type="checkbox" id="task13" data-week="5">
-                    <label for="task13" class="task-label">
-                        <strong>Day 6-7:</strong> Portfolio Project: EDA on 
-                        <a href="https://www.kaggle.com/datasets/imdevskp/corona-virus-report" class="resource-link" target="_blank">COVID-19 Data</a>
-                    </label>
-                </div>
-            </div>
 
-            <div class="week">
-                <div class="week-title">Week 6: SQL + Python Integration</div>
-                <div class="task">
-                    <input type="checkbox" id="task14" data-week="6">
-                    <label for="task14" class="task-label">
-                        <strong>Project:</strong> Sales Performance Analysis (SQL → Python → Power BI) - Dataset: 
-                        <a href="https://www.kaggle.com/datasets/kyanyoga/sample-sales-data" class="resource-link" target="_blank">Sample Sales Data</a>
-                    </label>
+                <!-- Week 6 content -->
+                <div class="week">
+                    <div class="week-header">
+                        <h3 class="week-title">
+                            <i class="fas fa-code-branch"></i>
+                            Week 6: SQL + Python Integration
+                            <span class="week-badge">Portfolio</span>
+                        </h3>
+                        <div class="week-progress" id="week6Progress">0/1 tasks</div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task14" data-week="6" data-phase="2">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-label">Sales Performance Analysis</span>
+                            </div>
+                            <div class="task-description">
+                                End-to-end project combining SQL, Python, and Power BI.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://www.kaggle.com/datasets/kyanyoga/sample-sales-data" class="task-link" target="_blank">
+                                    <i class="fas fa-database"></i> Sample Sales Data
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Phase 3: Machine Learning & Advanced Projects -->
         <div class="phase">
-            <h2 class="phase-title">🤖 Phase 3: Machine Learning (Weeks 7-12)</h2>
-            
-            <div class="week">
-                <div class="week-title">Week 7: Scikit-learn Basics</div>
-                <div class="task">
-                    <input type="checkbox" id="task15" data-week="7">
-                    <label for="task15" class="task-label">
-                        <strong>Day 1-3:</strong> Regression (Linear, Decision Trees) - 
-                        <a href="https://www.kaggle.com/c/house-prices-advanced-regression-techniques" class="resource-link" target="_blank">House Prices Dataset</a>
-                    </label>
-                </div>
-                <div class="task">
-                    <input type="checkbox" id="task16" data-week="7">
-                    <label for="task16" class="task-label">
-                        <strong>Day 4-5:</strong> Classification (Logistic Regression, Random Forest) - 
-                        <a href="https://www.kaggle.com/mlg-ulb/creditcardfraud" class="resource-link" target="_blank">Credit Card Fraud</a>
-                    </label>
-                </div>
-                <div class="task">
-                    <input type="checkbox" id="task17" data-week="7">
-                    <label for="task17" class="task-label">
-                        <strong>Day 6-7:</strong> Portfolio Project: 
-                        <a href="https://www.kaggle.com/c/bike-sharing-demand" class="resource-link" target="_blank">Predict Bike Sharing Demand</a>
-                    </label>
-                </div>
+            <div class="phase-header">
+                <h2 class="phase-title">
+                    <span class="phase-icon"><i class="fas fa-robot"></i></span>
+                    Phase 3: Machine Learning (Weeks 7-12)
+                </h2>
+                <div class="phase-progress" id="phase3Progress">0/7 tasks</div>
             </div>
+            <div class="phase-content">
+                
+                <!-- Week 7 content -->
+                <div class="week">
+                    <div class="week-header">
+                        <h3 class="week-title">
+                            <i class="fas fa-brain"></i>
+                            Week 7: Scikit-learn Basics
+                            <span class="week-badge">ML Fundamentals</span>
+                        </h3>
+                        <div class="week-progress" id="week7Progress">0/3 tasks</div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task15" data-week="7" data-phase="3">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 1-3</span>
+                                <span class="task-label">Regression Models</span>
+                            </div>
+                            <div class="task-description">
+                                Implement Linear Regression and Decision Trees on housing data.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://www.kaggle.com/c/house-prices-advanced-regression-techniques" class="task-link" target="_blank">
+                                    <i class="fas fa-database"></i> House Prices
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task16" data-week="7" data-phase="3">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 4-5</span>
+                                <span class="task-label">Classification Models</span>
+                            </div>
+                            <div class="task-description">
+                                Build fraud detection with Logistic Regression and Random Forest.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://www.kaggle.com/mlg-ulb/creditcardfraud" class="task-link" target="_blank">
+                                    <i class="fas fa-database"></i> Credit Card Fraud
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task17" data-week="7" data-phase="3">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 6-7</span>
+                                <span class="task-label">Bike Sharing Demand</span>
+                            </div>
+                            <div class="task-description">
+                                Predict bike rental demand using regression techniques.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://www.kaggle.com/c/bike-sharing-demand" class="task-link" target="_blank">
+                                    <i class="fas fa-database"></i> Bike Sharing Data
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="week">
-                <div class="week-title">Week 8: Model Tuning & Deployment</div>
-                <div class="task">
-                    <input type="checkbox" id="task18" data-week="8">
-                    <label for="task18" class="task-label">
-                        <strong>Day 1-3:</strong> Hyperparameter Tuning (GridSearchCV) - Guide: 
-                        <a href="https://scikit-learn.org/stable/modules/grid_search.html" class="resource-link" target="_blank">Scikit-learn Docs</a>
-                    </label>
+                <!-- Week 8 content -->
+                <div class="week">
+                    <div class="week-header">
+                        <h3 class="week-title">
+                            <i class="fas fa-cogs"></i>
+                            Week 8: Model Tuning & Deployment
+                            <span class="week-badge">Production</span>
+                        </h3>
+                        <div class="week-progress" id="week8Progress">0/3 tasks</div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task18" data-week="8" data-phase="3">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 1-3</span>
+                                <span class="task-label">Hyperparameter Tuning</span>
+                            </div>
+                            <div class="task-description">
+                                Optimize models using GridSearchCV and RandomizedSearchCV.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://scikit-learn.org/stable/modules/grid_search.html" class="task-link" target="_blank">
+                                    <i class="fas fa-book"></i> Scikit-learn Docs
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task19" data-week="8" data-phase="3">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 4-5</span>
+                                <span class="task-label">Model Deployment</span>
+                            </div>
+                            <div class="task-description">
+                                Deploy ML models as APIs using Flask or FastAPI.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://flask.palletsprojects.com/" class="task-link" target="_blank">
+                                    <i class="fas fa-server"></i> Flask
+                                </a>
+                                <a href="https://fastapi.tiangolo.com/" class="task-link" target="_blank">
+                                    <i class="fas fa-bolt"></i> FastAPI
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task20" data-week="8" data-phase="3">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-day">Days 6-7</span>
+                                <span class="task-label">Churn Prediction API</span>
+                            </div>
+                            <div class="task-description">
+                                Build and deploy a customer churn prediction service.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://www.heroku.com/" class="task-link" target="_blank">
+                                    <i class="fas fa-cloud"></i> Heroku
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="task">
-                    <input type="checkbox" id="task19" data-week="8">
-                    <label for="task19" class="task-label">
-                        <strong>Day 4-5:</strong> Deploy a model using 
-                        <a href="https://flask.palletsprojects.com/" class="resource-link" target="_blank">Flask</a> or 
-                        <a href="https://fastapi.tiangolo.com/" class="resource-link" target="_blank">FastAPI</a>
-                    </label>
-                </div>
-                <div class="task">
-                    <input type="checkbox" id="task20" data-week="8">
-                    <label for="task20" class="task-label">
-                        <strong>Day 6-7:</strong> Portfolio Project: Churn Prediction API - Use 
-                        <a href="https://www.heroku.com/" class="resource-link" target="_blank">Heroku</a>
-                    </label>
-                </div>
-            </div>
 
-            <div class="week">
-                <div class="week-title">Week 9-12: Capstone Project</div>
-                <div class="task">
-                    <input type="checkbox" id="task21" data-week="9">
-                    <label for="task21" class="task-label">
-                        <strong>End-to-End Data Pipeline:</strong> Example: 
-                        <a href="https://www.kaggle.com/datasets/aaron7sun/stocknews" class="resource-link" target="_blank">Stock Trends + Sentiment Analysis</a>
-                    </label>
+                <!-- Week 9-12 content -->
+                <div class="week">
+                    <div class="week-header">
+                        <h3 class="week-title">
+                            <i class="fas fa-graduation-cap"></i>
+                            Weeks 9-12: Capstone Project
+                            <span class="week-badge">Portfolio</span>
+                        </h3>
+                        <div class="week-progress" id="week9Progress">0/1 tasks</div>
+                    </div>
+                    
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" id="task21" data-week="9" data-phase="3">
+                        <div class="task-content">
+                            <div class="task-header">
+                                <span class="task-label">End-to-End Data Pipeline</span>
+                            </div>
+                            <div class="task-description">
+                                Complete project from data collection to deployed model.
+                            </div>
+                            <div class="task-links">
+                                <a href="https://www.kaggle.com/datasets/aaron7sun/stocknews" class="task-link" target="_blank">
+                                    <i class="fas fa-database"></i> Stock Trends Data
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Final Steps -->
         <div class="phase">
-            <h2 class="phase-title">🎯 Final Steps (Last 2 Weeks)</h2>
-            <div class="task">
-                <input type="checkbox" id="task22" data-week="10">
-                <label for="task22" class="task-label">Polish GitHub (Clean repos, add READMEs)</label>
+            <div class="phase-header">
+                <h2 class="phase-title">
+                    <span class="phase-icon"><i class="fas fa-flag-checkered"></i></span>
+                    Final Steps (Last 2 Weeks)
+                </h2>
+                <div class="phase-progress" id="phase4Progress">0/3 tasks</div>
             </div>
-            <div class="task">
-                <input type="checkbox" id="task23" data-week="10">
-                <label for="task23" class="task-label">
-                    Build a Personal Website - Use 
-                    <a href="https://pages.github.com/" class="resource-link" target="_blank">GitHub Pages</a> or 
-                    <a href="https://streamlit.io/" class="resource-link" target="_blank">Streamlit</a>
-                </label>
-            </div>
-            <div class="task">
-                <input type="checkbox" id="task24" data-week="10">
-                <label for="task24" class="task-label">
-                    Apply Strategically - Optimize 
-                    <a href="https://www.linkedin.com/" class="resource-link" target="_blank">LinkedIn</a> and 
-                    <a href="https://angel.co/jobs" class="resource-link" target="_blank">AngelList</a>
-                </label>
+            <div class="phase-content">
+                <div class="task">
+                    <input type="checkbox" class="task-checkbox" id="task22" data-week="10" data-phase="4">
+                    <div class="task-content">
+                        <div class="task-header">
+                            <span class="task-label">Polish GitHub Portfolio</span>
+                        </div>
+                        <div class="task-description">
+                            Clean repositories, add professional READMEs, and organize projects.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" class="task-checkbox" id="task23" data-week="10" data-phase="4">
+                    <div class="task-content">
+                        <div class="task-header">
+                            <span class="task-label">Build Personal Website</span>
+                        </div>
+                        <div class="task-description">
+                            Showcase your projects with GitHub Pages or Streamlit.
+                        </div>
+                        <div class="task-links">
+                            <a href="https://pages.github.com/" class="task-link" target="_blank">
+                                <i class="fas fa-laptop-code"></i> GitHub Pages
+                            </a>
+                            <a href="https://streamlit.io/" class="task-link" target="_blank">
+                                <i class="fas fa-chart-line"></i> Streamlit
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" class="task-checkbox" id="task24" data-week="10" data-phase="4">
+                    <div class="task-content">
+                        <div class="task-header">
+                            <span class="task-label">Job Application Strategy</span>
+                        </div>
+                        <div class="task-description">
+                            Optimize LinkedIn profile and apply to targeted positions.
+                        </div>
+                        <div class="task-links">
+                            <a href="https://www.linkedin.com/" class="task-link" target="_blank">
+                                <i class="fab fa-linkedin"></i> LinkedIn
+                            </a>
+                            <a href="https://angel.co/jobs" class="task-link" target="_blank">
+                                <i class="fas fa-briefcase"></i> AngelList
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Resources Section -->
         <div class="resources-section">
-            <h2 class="resources-title">📚 Bonus Resources</h2>
-            <div class="resource-item">
-                <strong>Free Courses:</strong> 
-                <a href="https://www.kaggle.com/learn" class="resource-link" target="_blank">Kaggle Learn</a>, 
-                <a href="https://www.dataquest.io/" class="resource-link" target="_blank">DataQuest</a>
+            <h2 class="section-title">
+                <i class="fas fa-book-open"></i>
+                Bonus Resources
+            </h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h3 class="resource-title">
+                        <i class="fas fa-graduation-cap"></i>
+                        Free Courses
+                    </h3>
+                    <div class="resource-description">
+                        High-quality free learning resources for data skills.
+                    </div>
+                    <a href="https://www.kaggle.com/learn" class="resource-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Kaggle Learn
+                    </a><br>
+                    <a href="https://www.dataquest.io/" class="resource-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> DataQuest
+                    </a>
+                </div>
+                
+                <div class="resource-card">
+                    <h3 class="resource-title">
+                        <i class="fas fa-file-alt"></i>
+                        Cheat Sheets
+                    </h3>
+                    <div class="resource-description">
+                        Quick references for SQL, Python, and Pandas.
+                    </div>
+                    <a href="https://www.sqltutorial.org/sql-cheat-sheet/" class="resource-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> SQL Cheat Sheet
+                    </a><br>
+                    <a href="https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Pandas Cheat Sheet
+                    </a>
+                </div>
+                
+                <div class="resource-card">
+                    <h3 class="resource-title">
+                        <i class="fas fa-book"></i>
+                        Books
+                    </h3>
+                    <div class="resource-description">
+                        Essential reading for data professionals.
+                    </div>
+                    <a href="https://jakevdp.github.io/PythonDataScienceHandbook/" class="resource-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Python Data Science Handbook
+                    </a><br>
+                    <a href="https://www.goodreads.com/book/show/25407018-storytelling-with-data" class="resource-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Storytelling with Data
+                    </a>
+                </div>
+                
+                <div class="resource-card">
+                    <h3 class="resource-title">
+                        <i class="fas fa-tools"></i>
+                        Tools & Platforms
+                    </h3>
+                    <div class="resource-description">
+                        Essential tools for data analysis and visualization.
+                    </div>
+                    <a href="https://learn.microsoft.com/en-us/training/powerplatform/power-bi" class="resource-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Power BI Tutorials
+                    </a><br>
+                    <a href="https://colab.research.google.com/" class="resource-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Google Colab
+                    </a>
+                </div>
             </div>
-            <div class="resource-item">
-                <strong>SQL Cheat Sheet:</strong> 
-                <a href="https://www.sqltutorial.org/sql-cheat-sheet/" class="resource-link" target="_blank">SQL Tutorial</a>
-            </div>
-            <div class="resource-item">
-                <strong>Python for Data Science:</strong> 
-                <a href="https://jakevdp.github.io/PythonDataScienceHandbook/" class="resource-link" target="_blank">Python Data Science Handbook</a>
-            </div>
-            <div class="resource-item">
-                <strong>Power BI Tutorials:</strong> 
-                <a href="https://learn.microsoft.com/en-us/training/powerplatform/power-bi" class="resource-link" target="_blank">Microsoft Learn</a>
-            </div>
-            <div class="resource-item">
-                <strong>ML Deployment:</strong> 
-                <a href="https://www.youtube.com/watch?v=UbCWoMf80PY" class="resource-link" target="_blank">FastAPI Tutorial</a>
-            </div>
+        </div>
+
+        <!-- Notes Section -->
+        <div class="notes-section">
+            <h2 class="section-title">
+                <i class="fas fa-edit"></i>
+                Personal Notes
+            </h2>
+            <textarea class="notes-textarea" id="personalNotes" placeholder="Add your personal notes, ideas, or reminders here..."></textarea>
+        </div>
+
+        <div class="footer">
+            Made with ❤️ for your Data Analyst journey | Save this page to track your progress
         </div>
     </div>
 
@@ -431,48 +1237,153 @@
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
             if (document.body.classList.contains('dark-mode')) {
-                themeToggle.textContent = '☀️ Light Mode';
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+                localStorage.setItem('theme', 'dark');
             } else {
-                themeToggle.textContent = '🌙 Dark Mode';
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+                localStorage.setItem('theme', 'light');
             }
         });
+
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        }
 
         // Progress Tracking
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const checkboxes = document.querySelectorAll('.task-checkbox');
         const progressFill = document.getElementById('progressFill');
         const progressPercent = document.getElementById('progressPercent');
+        const completedTasksEl = document.getElementById('completedTasks');
+        const totalTasksEl = document.getElementById('totalTasks');
+        const totalTasks = checkboxes.length;
+        totalTasksEl.textContent = totalTasks;
+
+        // Initialize phase and week progress trackers
+        const phases = {
+            1: { total: 7, progressEl: document.getElementById('phase1Progress'), weeks: [1, 2, 3] },
+            2: { total: 7, progressEl: document.getElementById('phase2Progress'), weeks: [4, 5, 6] },
+            3: { total: 7, progressEl: document.getElementById('phase3Progress'), weeks: [7, 8, 9] },
+            4: { total: 3, progressEl: document.getElementById('phase4Progress') }
+        };
+
+        const weeks = {};
+        for (let i = 1; i <= 9; i++) {
+            weeks[i] = {
+                progressEl: document.getElementById(`week${i}Progress`),
+                total: document.querySelectorAll(`.task-checkbox[data-week="${i}"]`).length
+            };
+        }
 
         // Load saved progress from localStorage
-        checkboxes.forEach(checkbox => {
-            const savedState = localStorage.getItem(checkbox.id);
-            if (savedState === 'checked') {
-                checkbox.checked = true;
-                checkbox.nextElementSibling.classList.add('task-completed');
+        function loadProgress() {
+            let completed = 0;
+            
+            checkboxes.forEach(checkbox => {
+                const savedState = localStorage.getItem(checkbox.id);
+                if (savedState === 'checked') {
+                    checkbox.checked = true;
+                    checkbox.closest('.task').classList.add('task-completed');
+                    completed++;
+                }
+
+                checkbox.addEventListener('change', function() {
+                    const taskElement = this.closest('.task');
+                    if (this.checked) {
+                        taskElement.classList.add('task-completed', 'task-completed-animation');
+                        localStorage.setItem(this.id, 'checked');
+                        completed++;
+                    } else {
+                        taskElement.classList.remove('task-completed');
+                        localStorage.removeItem(this.id);
+                        completed--;
+                    }
+                    
+                    // Remove animation class after animation completes
+                    setTimeout(() => {
+                        taskElement.classList.remove('task-completed-animation');
+                    }, 500);
+                    
+                    updateProgress();
+                });
+            });
+
+            // Load notes
+            const savedNotes = localStorage.getItem('personalNotes');
+            if (savedNotes) {
+                document.getElementById('personalNotes').value = savedNotes;
             }
 
-            checkbox.addEventListener('change', function() {
-                if (this.checked) {
-                    this.nextElementSibling.classList.add('task-completed');
-                    localStorage.setItem(this.id, 'checked');
-                } else {
-                    this.nextElementSibling.classList.remove('task-completed');
-                    localStorage.removeItem(this.id);
-                }
-                updateProgress();
-            });
-        });
+            completedTasksEl.textContent = completed;
+            updateProgress();
+        }
 
+        // Update all progress indicators
         function updateProgress() {
-            const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
-            const total = checkboxes.length;
-            const percent = Math.round((checked / total) * 100);
+            // Calculate overall progress
+            const checked = document.querySelectorAll('.task-checkbox:checked').length;
+            const percent = Math.round((checked / totalTasks) * 100);
             
             progressFill.style.width = `${percent}%`;
             progressPercent.textContent = `${percent}%`;
+            completedTasksEl.textContent = checked;
+
+            // Update phase progress
+            Object.keys(phases).forEach(phaseId => {
+                const phase = phases[phaseId];
+                const phaseTasks = document.querySelectorAll(`.task-checkbox[data-phase="${phaseId}"]:checked`);
+                const phaseCompleted = phaseTasks.length;
+                phase.progressEl.textContent = `${phaseCompleted}/${phase.total} tasks`;
+                
+                // Update week progress for this phase
+                if (phase.weeks) {
+                    phase.weeks.forEach(weekId => {
+                        const week = weeks[weekId];
+                        const weekTasks = document.querySelectorAll(`.task-checkbox[data-week="${weekId}"]:checked`);
+                        week.progressEl.textContent = `${weekTasks.length}/${week.total} tasks`;
+                    });
+                }
+            });
+
+            // Save notes
+            const notesTextarea = document.getElementById('personalNotes');
+            notesTextarea.addEventListener('input', () => {
+                localStorage.setItem('personalNotes', notesTextarea.value);
+            });
         }
 
-        // Initialize progress
-        updateProgress();
+        // Export functionality
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            const checkedTasks = document.querySelectorAll('.task-checkbox:checked');
+            let exportText = `Data Analyst Roadmap Progress - ${new Date().toLocaleDateString()}\n\n`;
+            exportText += `Overall Progress: ${progressPercent.textContent} (${completedTasksEl.textContent}/${totalTasksEl.textContent} tasks)\n\n`;
+            
+            // Add completed tasks
+            exportText += "=== COMPLETED TASKS ===\n";
+            checkedTasks.forEach(task => {
+                const taskLabel = task.closest('.task').querySelector('.task-label').textContent;
+                exportText += `✓ ${taskLabel}\n`;
+            });
+            
+            // Add notes
+            exportText += "\n=== NOTES ===\n";
+            exportText += document.getElementById('personalNotes').value || "No notes yet";
+            
+            // Create download
+            const blob = new Blob([exportText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `data-analyst-progress-${new Date().toISOString().slice(0, 10)}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // Initialize
+        loadProgress();
     </script>
 </body>
 </html>
