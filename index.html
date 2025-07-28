@@ -12,6 +12,7 @@
             --primary: #6c63ff;
             --secondary: #4d44db;
             --border: #e1e4e8;
+            --link-color: #1a73e8;
         }
         .dark-mode {
             --bg-color: #1a1a2e;
@@ -20,6 +21,7 @@
             --primary: #8a7cff;
             --secondary: #6a5acd;
             --border: #2d3748;
+            --link-color: #8ab4f8;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -28,6 +30,7 @@
             margin: 0;
             padding: 0;
             transition: all 0.3s ease;
+            line-height: 1.6;
         }
         .container {
             max-width: 1000px;
@@ -90,7 +93,7 @@
         }
         .task {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             margin: 10px 0;
             padding: 10px;
             border-radius: 5px;
@@ -100,6 +103,7 @@
         .task input {
             margin-right: 15px;
             transform: scale(1.2);
+            margin-top: 3px;
         }
         .task-label {
             flex: 1;
@@ -115,6 +119,29 @@
             font-weight: bold;
             margin-bottom: 10px;
             color: var(--secondary);
+        }
+        .resource-link {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .resource-link:hover {
+            text-decoration: underline;
+        }
+        .resources-section {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+        .resources-title {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        .resource-item {
+            margin-bottom: 10px;
         }
         @media (max-width: 768px) {
             .container {
@@ -152,15 +179,25 @@
                 <div class="week-title">Week 1: SQL Deep Dive</div>
                 <div class="task">
                     <input type="checkbox" id="task1" data-week="1">
-                    <label for="task1" class="task-label">Day 1-3: Advanced SQL (CTEs, Window Functions, Subqueries) - Practice on StrataScratch</label>
+                    <label for="task1" class="task-label">
+                        <strong>Day 1-3:</strong> Advanced SQL (CTEs, Window Functions, Subqueries) - Practice on 
+                        <a href="https://www.stratascratch.com/" class="resource-link" target="_blank">StrataScratch</a> and 
+                        <a href="https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset" class="resource-link" target="_blank">Google BigQuery Public Datasets</a>
+                    </label>
                 </div>
                 <div class="task">
                     <input type="checkbox" id="task2" data-week="1">
-                    <label for="task2" class="task-label">Day 4-5: Query Optimization (Indexing, Execution Plans)</label>
+                    <label for="task2" class="task-label">
+                        <strong>Day 4-5:</strong> Query Optimization (Indexing, Execution Plans) - Use 
+                        <a href="https://use-the-index-luke.com/" class="resource-link" target="_blank">Use The Index, Luke</a>
+                    </label>
                 </div>
                 <div class="task">
                     <input type="checkbox" id="task3" data-week="1">
-                    <label for="task3" class="task-label">Day 6-7: Solve 3-5 business case studies (e.g., SaaS retention analysis)</label>
+                    <label for="task3" class="task-label">
+                        <strong>Day 6-7:</strong> Solve 3-5 business case studies (e.g., SaaS retention analysis) - Try 
+                        <a href="https://leetcode.com/problemset/database/" class="resource-link" target="_blank">LeetCode SQL Problems</a>
+                    </label>
                 </div>
             </div>
 
@@ -168,15 +205,25 @@
                 <div class="week-title">Week 2: Power BI + DAX</div>
                 <div class="task">
                     <input type="checkbox" id="task4" data-week="2">
-                    <label for="task4" class="task-label">Day 1-3: Build 2 dashboards (Sales, HR Analytics) using Kaggle/Makeover Monday</label>
+                    <label for="task4" class="task-label">
+                        <strong>Day 1-3:</strong> Build 2 dashboards (Sales, HR Analytics) using 
+                        <a href="https://www.kaggle.com/" class="resource-link" target="_blank">Kaggle</a> or 
+                        <a href="https://www.makeovermonday.co.uk/data/" class="resource-link" target="_blank">Makeover Monday</a>
+                    </label>
                 </div>
                 <div class="task">
                     <input type="checkbox" id="task5" data-week="2">
-                    <label for="task5" class="task-label">Day 4-5: Learn DAX formulas (CALCULATE, FILTER, TIME INTELLIGENCE)</label>
+                    <label for="task5" class="task-label">
+                        <strong>Day 4-5:</strong> Learn DAX formulas - 
+                        <a href="https://www.sqlbi.com/guides/dax/" class="resource-link" target="_blank">SQLBI DAX Guide</a>
+                    </label>
                 </div>
                 <div class="task">
                     <input type="checkbox" id="task6" data-week="2">
-                    <label for="task6" class="task-label">Day 6-7: Portfolio Project: Dynamic financial dashboard (stock market analysis)</label>
+                    <label for="task6" class="task-label">
+                        <strong>Day 6-7:</strong> Portfolio Project: Dynamic financial dashboard (stock market analysis) - Use 
+                        <a href="https://www.kaggle.com/datasets/paultimothymooney/stock-market-data" class="resource-link" target="_blank">Kaggle Stock Data</a>
+                    </label>
                 </div>
             </div>
 
@@ -184,7 +231,11 @@
                 <div class="week-title">Week 3: End-to-End Analytics Project</div>
                 <div class="task">
                     <input type="checkbox" id="task7" data-week="3">
-                    <label for="task7" class="task-label">Project: Customer Churn Analysis (SQL + Power BI) → Publish on GitHub/LinkedIn</label>
+                    <label for="task7" class="task-label">
+                        <strong>Project:</strong> Customer Churn Analysis (SQL + Power BI) - Dataset: 
+                        <a href="https://www.kaggle.com/datasets/blastchar/telco-customer-churn" class="resource-link" target="_blank">Telco Churn Data</a> → Publish on 
+                        <a href="https://github.com/" class="resource-link" target="_blank">GitHub</a>
+                    </label>
                 </div>
             </div>
         </div>
@@ -197,15 +248,24 @@
                 <div class="week-title">Week 4: Python for Data Analysis</div>
                 <div class="task">
                     <input type="checkbox" id="task8" data-week="4">
-                    <label for="task8" class="task-label">Day 1-3: Pandas Deep Dive (GroupBy, Pivot, Merging, Time Series) - NYC Taxi Data</label>
+                    <label for="task8" class="task-label">
+                        <strong>Day 1-3:</strong> Pandas Deep Dive (GroupBy, Pivot, Merging) - Dataset: 
+                        <a href="https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page" class="resource-link" target="_blank">NYC Taxi Trips</a>
+                    </label>
                 </div>
                 <div class="task">
                     <input type="checkbox" id="task9" data-week="4">
-                    <label for="task9" class="task-label">Day 4-5: Automate a real task (clean & analyze 10K+ rows of sales data)</label>
+                    <label for="task9" class="task-label">
+                        <strong>Day 4-5:</strong> Automate a real task (clean & analyze 10K+ rows) - Try 
+                        <a href="https://www.kaggle.com/datasets/karkavelrajaj/amazon-sales-dataset" class="resource-link" target="_blank">Amazon Sales Data</a>
+                    </label>
                 </div>
                 <div class="task">
                     <input type="checkbox" id="task10" data-week="4">
-                    <label for="task10" class="task-label">Day 6-7: Portfolio Project: EDA on Spotify Top Songs</label>
+                    <label for="task10" class="task-label">
+                        <strong>Day 6-7:</strong> Portfolio Project: EDA on 
+                        <a href="https://www.kaggle.com/datasets/iamsumat/spotify-top-2000s-mega-dataset" class="resource-link" target="_blank">Spotify Top Songs</a>
+                    </label>
                 </div>
             </div>
 
@@ -213,15 +273,24 @@
                 <div class="week-title">Week 5: Advanced EDA + Data Cleaning</div>
                 <div class="task">
                     <input type="checkbox" id="task11" data-week="5">
-                    <label for="task11" class="task-label">Day 1-3: Handle missing data, outliers, feature engineering (Zillow Data)</label>
+                    <label for="task11" class="task-label">
+                        <strong>Day 1-3:</strong> Handle missing data, outliers - Dataset: 
+                        <a href="https://www.kaggle.com/datasets/zillow/zecon" class="resource-link" target="_blank">Zillow Housing Data</a>
+                    </label>
                 </div>
                 <div class="task">
                     <input type="checkbox" id="task12" data-week="5">
-                    <label for="task12" class="task-label">Day 4-5: Automated Report (Python + Jupyter → PDF/HTML)</label>
+                    <label for="task12" class="task-label">
+                        <strong>Day 4-5:</strong> Automated Report (Python + Jupyter → PDF/HTML) - Use 
+                        <a href="https://pypi.org/project/pdfkit/" class="resource-link" target="_blank">PDFKit</a>
+                    </label>
                 </div>
                 <div class="task">
                     <input type="checkbox" id="task13" data-week="5">
-                    <label for="task13" class="task-label">Day 6-7: Portfolio Project: EDA on COVID-19 Data</label>
+                    <label for="task13" class="task-label">
+                        <strong>Day 6-7:</strong> Portfolio Project: EDA on 
+                        <a href="https://www.kaggle.com/datasets/imdevskp/corona-virus-report" class="resource-link" target="_blank">COVID-19 Data</a>
+                    </label>
                 </div>
             </div>
 
@@ -229,7 +298,10 @@
                 <div class="week-title">Week 6: SQL + Python Integration</div>
                 <div class="task">
                     <input type="checkbox" id="task14" data-week="6">
-                    <label for="task14" class="task-label">Project: Sales Performance Analysis (SQL → Python → Power BI)</label>
+                    <label for="task14" class="task-label">
+                        <strong>Project:</strong> Sales Performance Analysis (SQL → Python → Power BI) - Dataset: 
+                        <a href="https://www.kaggle.com/datasets/kyanyoga/sample-sales-data" class="resource-link" target="_blank">Sample Sales Data</a>
+                    </label>
                 </div>
             </div>
         </div>
@@ -242,15 +314,24 @@
                 <div class="week-title">Week 7: Scikit-learn Basics</div>
                 <div class="task">
                     <input type="checkbox" id="task15" data-week="7">
-                    <label for="task15" class="task-label">Day 1-3: Regression (Linear, Decision Trees) - House Prices Dataset</label>
+                    <label for="task15" class="task-label">
+                        <strong>Day 1-3:</strong> Regression (Linear, Decision Trees) - 
+                        <a href="https://www.kaggle.com/c/house-prices-advanced-regression-techniques" class="resource-link" target="_blank">House Prices Dataset</a>
+                    </label>
                 </div>
                 <div class="task">
                     <input type="checkbox" id="task16" data-week="7">
-                    <label for="task16" class="task-label">Day 4-5: Classification (Logistic Regression, Random Forest) - Credit Card Fraud</label>
+                    <label for="task16" class="task-label">
+                        <strong>Day 4-5:</strong> Classification (Logistic Regression, Random Forest) - 
+                        <a href="https://www.kaggle.com/mlg-ulb/creditcardfraud" class="resource-link" target="_blank">Credit Card Fraud</a>
+                    </label>
                 </div>
                 <div class="task">
                     <input type="checkbox" id="task17" data-week="7">
-                    <label for="task17" class="task-label">Day 6-7: Portfolio Project: Predict Bike Sharing Demand</label>
+                    <label for="task17" class="task-label">
+                        <strong>Day 6-7:</strong> Portfolio Project: 
+                        <a href="https://www.kaggle.com/c/bike-sharing-demand" class="resource-link" target="_blank">Predict Bike Sharing Demand</a>
+                    </label>
                 </div>
             </div>
 
@@ -258,15 +339,25 @@
                 <div class="week-title">Week 8: Model Tuning & Deployment</div>
                 <div class="task">
                     <input type="checkbox" id="task18" data-week="8">
-                    <label for="task18" class="task-label">Day 1-3: Hyperparameter Tuning (GridSearchCV)</label>
+                    <label for="task18" class="task-label">
+                        <strong>Day 1-3:</strong> Hyperparameter Tuning (GridSearchCV) - Guide: 
+                        <a href="https://scikit-learn.org/stable/modules/grid_search.html" class="resource-link" target="_blank">Scikit-learn Docs</a>
+                    </label>
                 </div>
                 <div class="task">
                     <input type="checkbox" id="task19" data-week="8">
-                    <label for="task19" class="task-label">Day 4-5: Deploy a model using Flask/FastAPI</label>
+                    <label for="task19" class="task-label">
+                        <strong>Day 4-5:</strong> Deploy a model using 
+                        <a href="https://flask.palletsprojects.com/" class="resource-link" target="_blank">Flask</a> or 
+                        <a href="https://fastapi.tiangolo.com/" class="resource-link" target="_blank">FastAPI</a>
+                    </label>
                 </div>
                 <div class="task">
                     <input type="checkbox" id="task20" data-week="8">
-                    <label for="task20" class="task-label">Day 6-7: Portfolio Project: Churn Prediction API</label>
+                    <label for="task20" class="task-label">
+                        <strong>Day 6-7:</strong> Portfolio Project: Churn Prediction API - Use 
+                        <a href="https://www.heroku.com/" class="resource-link" target="_blank">Heroku</a>
+                    </label>
                 </div>
             </div>
 
@@ -274,7 +365,10 @@
                 <div class="week-title">Week 9-12: Capstone Project</div>
                 <div class="task">
                     <input type="checkbox" id="task21" data-week="9">
-                    <label for="task21" class="task-label">End-to-End Data Pipeline (SQL → Python → ML → Dashboard)</label>
+                    <label for="task21" class="task-label">
+                        <strong>End-to-End Data Pipeline:</strong> Example: 
+                        <a href="https://www.kaggle.com/datasets/aaron7sun/stocknews" class="resource-link" target="_blank">Stock Trends + Sentiment Analysis</a>
+                    </label>
                 </div>
             </div>
         </div>
@@ -288,11 +382,45 @@
             </div>
             <div class="task">
                 <input type="checkbox" id="task23" data-week="10">
-                <label for="task23" class="task-label">Build a Personal Website/Portfolio (GitHub Pages/Streamlit)</label>
+                <label for="task23" class="task-label">
+                    Build a Personal Website - Use 
+                    <a href="https://pages.github.com/" class="resource-link" target="_blank">GitHub Pages</a> or 
+                    <a href="https://streamlit.io/" class="resource-link" target="_blank">Streamlit</a>
+                </label>
             </div>
             <div class="task">
                 <input type="checkbox" id="task24" data-week="10">
-                <label for="task24" class="task-label">Apply Strategically (Startups/scaleups, LinkedIn networking)</label>
+                <label for="task24" class="task-label">
+                    Apply Strategically - Optimize 
+                    <a href="https://www.linkedin.com/" class="resource-link" target="_blank">LinkedIn</a> and 
+                    <a href="https://angel.co/jobs" class="resource-link" target="_blank">AngelList</a>
+                </label>
+            </div>
+        </div>
+
+        <!-- Resources Section -->
+        <div class="resources-section">
+            <h2 class="resources-title">📚 Bonus Resources</h2>
+            <div class="resource-item">
+                <strong>Free Courses:</strong> 
+                <a href="https://www.kaggle.com/learn" class="resource-link" target="_blank">Kaggle Learn</a>, 
+                <a href="https://www.dataquest.io/" class="resource-link" target="_blank">DataQuest</a>
+            </div>
+            <div class="resource-item">
+                <strong>SQL Cheat Sheet:</strong> 
+                <a href="https://www.sqltutorial.org/sql-cheat-sheet/" class="resource-link" target="_blank">SQL Tutorial</a>
+            </div>
+            <div class="resource-item">
+                <strong>Python for Data Science:</strong> 
+                <a href="https://jakevdp.github.io/PythonDataScienceHandbook/" class="resource-link" target="_blank">Python Data Science Handbook</a>
+            </div>
+            <div class="resource-item">
+                <strong>Power BI Tutorials:</strong> 
+                <a href="https://learn.microsoft.com/en-us/training/powerplatform/power-bi" class="resource-link" target="_blank">Microsoft Learn</a>
+            </div>
+            <div class="resource-item">
+                <strong>ML Deployment:</strong> 
+                <a href="https://www.youtube.com/watch?v=UbCWoMf80PY" class="resource-link" target="_blank">FastAPI Tutorial</a>
             </div>
         </div>
     </div>
